@@ -18,8 +18,12 @@ window.onload = () => {
 };
 // ? Start Timer
 const startTimer = () => {
-	intervalId = countDown();
-	console.log(intervalId);
+	if (remainingTime > 0) {
+		toggleBtn.innerText = "stop";
+		intervalId = countDown();
+	} else {
+		alert("Increase the time first");
+	}
 };
 //  ? Stop Timer
 const stopTimer = () => {
@@ -30,9 +34,10 @@ const stopTimer = () => {
 const funcToggleTimer = () => {
 	if (toggleBtn.textContent === "start") {
 		startTimer();
-		toggleBtn.innerText = "stop";
 	} else if (toggleBtn.textContent === "stop") {
 		stopTimer();
+		audio.pause();
+		ring.classList.remove("ending");
 		toggleBtn.innerText = "start";
 	}
 };
@@ -46,14 +51,14 @@ toggleBtn.onclick = () => {
 const setTime = (time) => {
 	/*
 	* This function checks the remaining time and sets it to display:
-				? If minutes === 0; Updates minutesInput with 0, otherwise updates with the minutes remaining;
+				? If minutes < 10; Updates minutesInput with 0, before the seconds value, otherwise updates with the minutes remaining;
 				? If seconds < 10; Updates SecondsInput with O before the seconds value, otherwise updates with the seconds remaining;
 	*/
 
 	const minutes = Math.floor(time / 60);
 	const seconds = time % 60;
 
-	minutesInput.setAttribute("value", minutes === 0 ? "00" : minutes);
+	minutesInput.setAttribute("value", minutes < 10 ? `0${minutes}` : minutes);
 	secondsInput.setAttribute("value", seconds < 10 ? `0${seconds}` : seconds);
 };
 
@@ -71,7 +76,6 @@ const countDown = () => {
 				? Initiates alert browser event;
 		*/
 
-		ring.classList.remove("ending");
 		remainingTime--;
 		setTime(remainingTime);
 		if (remainingTime <= 0) {
