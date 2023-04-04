@@ -74,11 +74,10 @@ const countDown = () => {
 		remainingTime--;
 		setTime(remainingTime);
 		if (remainingTime <= 0) {
+			audio.play();
 			clearInterval(intervalId);
 			ring.classList.add("ending");
 			stopTimer();
-			audio.play();
-			alert("Time is up");
 		}
 	}, 1000);
 };
