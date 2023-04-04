@@ -47,14 +47,14 @@ const setTime = (time) => {
 	/*
 	* This function checks the remaining time and sets it to display:
 				? If minutes === 0; Updates minutesInput with 0, otherwise updates with the minutes remaining;
-				? If seconds === 0; Updates SecondsInput with O, otherwise updates with the seconds remaining;
+				? If seconds < 10; Updates SecondsInput with O before the seconds value, otherwise updates with the seconds remaining;
 	*/
 
 	const minutes = Math.floor(time / 60);
 	const seconds = time % 60;
 
 	minutesInput.setAttribute("value", minutes === 0 ? "00" : minutes);
-	secondsInput.setAttribute("value", seconds === 0 ? "00" : seconds);
+	secondsInput.setAttribute("value", seconds < 10 ? `0${seconds}` : seconds);
 };
 
 // ? Countdown Function
