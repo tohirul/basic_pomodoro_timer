@@ -71,6 +71,7 @@ const countDown = () => {
 				? Initiates alert browser event;
 		*/
 
+		ring.classList.remove("ending");
 		remainingTime--;
 		setTime(remainingTime);
 		if (remainingTime <= 0) {
